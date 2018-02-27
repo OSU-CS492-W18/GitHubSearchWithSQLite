@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">GitHub Search with SQLite</string>
 
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+
     <string name="loading_error_message">Failed to execute your search.  Check your internet connection.</string>
 
     <string name="action_share">Share</string>
