@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithprefs;
+package com.example.android.githubsearchwithsqlite;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.githubsearchwithprefs.utils.GitHubUtils;
+import com.example.android.githubsearchwithsqlite.utils.GitHubUtils;
 
 import java.util.ArrayList;
 

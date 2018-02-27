@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithprefs;
+package com.example.android.githubsearchwithsqlite;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,15 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.githubsearchwithprefs.utils.GitHubUtils;
+import com.example.android.githubsearchwithsqlite.utils.GitHubUtils;
 
 public class SearchResultDetailActivity extends AppCompatActivity {
 
     private TextView mTVSearchResultName;
     private TextView mTVSearchResultStars;
     private TextView mTVSearchResultDescription;
+    private ImageView mIVSearchResultBookmark;
+    private boolean mIsBookmarked = false;
 
     private GitHubUtils.SearchResult mSearchResult;
 
@@ -23,9 +27,10 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_detail);
 
-        mTVSearchResultName = (TextView)findViewById(R.id.tv_search_result_name);
-        mTVSearchResultStars = (TextView)findViewById(R.id.tv_search_result_stars);
-        mTVSearchResultDescription = (TextView)findViewById(R.id.tv_search_result_description);
+        mTVSearchResultName = findViewById(R.id.tv_search_result_name);
+        mTVSearchResultStars = findViewById(R.id.tv_search_result_stars);
+        mTVSearchResultDescription = findViewById(R.id.tv_search_result_description);
+        mIVSearchResultBookmark = findViewById(R.id.iv_search_result_bookmark);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(GitHubUtils.EXTRA_SEARCH_RESULT)) {
@@ -34,6 +39,18 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             mTVSearchResultStars.setText(String.valueOf(mSearchResult.stars));
             mTVSearchResultDescription.setText(mSearchResult.description);
         }
+
+        mIVSearchResultBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIsBookmarked = !mIsBookmarked;
+                if (mIsBookmarked) {
+                    mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_black_48dp);
+                } else {
+                    mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_border_black_48dp);
+                }
+            }
+        });
     }
 
     @Override

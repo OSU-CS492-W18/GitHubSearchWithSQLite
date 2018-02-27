@@ -1,10 +1,10 @@
-package com.example.android.githubsearchwithprefs;
+package com.example.android.githubsearchwithsqlite;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-import com.example.android.githubsearchwithprefs.utils.NetworkUtils;
+import com.example.android.githubsearchwithsqlite.utils.NetworkUtils;
 
 import java.io.IOException;
 

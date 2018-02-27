@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub Search with User Prefs</string>
+    <string name="app_name">GitHub Search with SQLite</string>
 
     <string name="loading_error_message">Failed to execute your search.  Check your internet connection.</string>
 
@@ -38,7 +38,7 @@
     <string name="pref_language_value_rust" translatable="false">rust</string>
     <string name="pref_language_entry_python">Python</string>
     <string name="pref_language_value_python" translatable="false">python</string>
-    
+
     <!-- Strings for search-in preference -->
     <string name="pref_in_title">Search in</string>
     <string name="pref_in_name_key" translatable="false">pref_in_name</string>

@@ -4,15 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.githubsearchwithprefs.SearchResultDetailActivity">
+    tools:context="com.example.android.githubsearchwithsqlite.SearchResultDetailActivity">
 
-    <TextView
-        android:id="@+id/tv_search_result_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:padding="16dp"
-        android:textColor="#000"/>
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_search_result_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bookmark_border_black_48dp"/>
+
+        <TextView
+            android:id="@+id/tv_search_result_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textColor="#000"
+            android:layout_marginLeft="16dp"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

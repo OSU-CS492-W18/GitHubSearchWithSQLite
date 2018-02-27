@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithprefs;
+package com.example.android.githubsearchwithsqlite;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

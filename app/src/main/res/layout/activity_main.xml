@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8sp"
-    tools:context="com.example.android.githubsearchwithprefs.MainActivity">
+    tools:context="com.example.android.githubsearchwithsqlite.MainActivity">
 
     <EditText
         android:id="@+id/et_search_box"

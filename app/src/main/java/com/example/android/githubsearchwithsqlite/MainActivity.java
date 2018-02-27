@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithprefs;
+package com.example.android.githubsearchwithsqlite;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.githubsearchwithprefs.utils.GitHubUtils;
+import com.example.android.githubsearchwithsqlite.utils.GitHubUtils;
 
 import java.util.ArrayList;
 

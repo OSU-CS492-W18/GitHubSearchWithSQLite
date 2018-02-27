@@ -1,4 +1,4 @@
-package com.example.android.githubsearchwithprefs.utils;
+package com.example.android.githubsearchwithsqlite.utils;
 
 import android.net.Uri;
 import android.text.TextUtils;
@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.util.ArrayList;
