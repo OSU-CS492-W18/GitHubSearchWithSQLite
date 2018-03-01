@@ -1,6 +1,8 @@
 package com.example.android.githubsearchwithsqlite;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,8 @@ public class SearchResultDetailActivity extends AppCompatActivity {
     private ImageView mIVSearchResultBookmark;
     private boolean mIsBookmarked = false;
 
+    private SQLiteDatabase mDB;
+
     private GitHubUtils.SearchResult mSearchResult;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +44,15 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             mTVSearchResultDescription.setText(mSearchResult.description);
         }
 
+        GitHubSearchDBHelper dbHelper = new GitHubSearchDBHelper(this);
+        mDB = dbHelper.getWritableDatabase();
+
         mIVSearchResultBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIsBookmarked = !mIsBookmarked;
                 if (mIsBookmarked) {
+                    addSearchResultToDB();
                     mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_black_48dp);
                 } else {
                     mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_border_black_48dp);
@@ -93,6 +101,19 @@ public class SearchResultDetailActivity extends AppCompatActivity {
                     .setType("text/plain")
                     .setText(shareText)
                     .startChooser();
+        }
+    }
+
+    private long addSearchResultToDB() {
+        if (mSearchResult != null) {
+            ContentValues row = new ContentValues();
+            row.put(GitHubSearchContract.SavedRepos.COLUMN_FULL_NAME, mSearchResult.fullName);
+            row.put(GitHubSearchContract.SavedRepos.COLUMN_DESCRIPTION, mSearchResult.description);
+            row.put(GitHubSearchContract.SavedRepos.COLUMN_URL, mSearchResult.htmlURL);
+            row.put(GitHubSearchContract.SavedRepos.COLUMN_STARS, mSearchResult.stars);
+            mDB.insert(GitHubSearchContract.SavedRepos.TABLE_NAME, null, row);
+        } else {
+            return -1;
         }
     }
 }

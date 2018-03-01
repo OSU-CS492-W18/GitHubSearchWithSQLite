@@ -3,14 +3,17 @@
 
     <item
         android:id="@+id/nav_search"
-        android:title="Search"/>
+        android:title="@string/nav_search_title"
+        android:icon="@drawable/ic_nav_search"/>
 
     <item
         android:id="@+id/nav_saved_search_results"
-        android:title="Saved search results"/>
+        android:title="@string/nav_saved_results_title"
+        android:icon="@drawable/ic_nav_saved_results"/>
 
     <item
         android:id="@+id/nav_settings"
-        android:title="Settings" />
+        android:title="@string/nav_settings_title"
+        android:icon="@drawable/ic_nav_settings"/>
 
 </menu>
