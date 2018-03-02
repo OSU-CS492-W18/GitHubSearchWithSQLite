@@ -111,7 +111,7 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             row.put(GitHubSearchContract.SavedRepos.COLUMN_DESCRIPTION, mSearchResult.description);
             row.put(GitHubSearchContract.SavedRepos.COLUMN_URL, mSearchResult.htmlURL);
             row.put(GitHubSearchContract.SavedRepos.COLUMN_STARS, mSearchResult.stars);
-            mDB.insert(GitHubSearchContract.SavedRepos.TABLE_NAME, null, row);
+            return mDB.insert(GitHubSearchContract.SavedRepos.TABLE_NAME, null, row);
         } else {
             return -1;
         }
