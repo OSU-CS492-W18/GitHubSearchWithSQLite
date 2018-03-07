@@ -2,6 +2,7 @@ package com.example.android.githubsearchwithsqlite;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.ShareCompat;
@@ -47,18 +48,28 @@ public class SearchResultDetailActivity extends AppCompatActivity {
         GitHubSearchDBHelper dbHelper = new GitHubSearchDBHelper(this);
         mDB = dbHelper.getWritableDatabase();
 
+        updateSearchResultStarsInDB();
+        mIsBookmarked = checkIsRepoSaved();
+        updateBookmarkIconState();
+
         mIVSearchResultBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIsBookmarked = !mIsBookmarked;
                 if (mIsBookmarked) {
                     addSearchResultToDB();
-                    mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_black_48dp);
                 } else {
-                    mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_border_black_48dp);
+                    deleteSearchResultFromDB();
                 }
+                updateBookmarkIconState();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        mDB.close();
+        super.onDestroy();
     }
 
     @Override
@@ -114,6 +125,54 @@ public class SearchResultDetailActivity extends AppCompatActivity {
             return mDB.insert(GitHubSearchContract.SavedRepos.TABLE_NAME, null, row);
         } else {
             return -1;
+        }
+    }
+
+    private void deleteSearchResultFromDB() {
+        if (mSearchResult != null) {
+            String sqlSelection = GitHubSearchContract.SavedRepos.COLUMN_FULL_NAME + " = ?";
+            String[] sqlSelectionArgs = { mSearchResult.fullName };
+            mDB.delete(GitHubSearchContract.SavedRepos.TABLE_NAME, sqlSelection, sqlSelectionArgs);
+        }
+    }
+
+    private boolean checkIsRepoSaved() {
+        boolean isSaved = false;
+        if (mSearchResult != null) {
+            String sqlSelection = GitHubSearchContract.SavedRepos.COLUMN_FULL_NAME + " = ?";
+            String[] sqlSelectionArgs = { mSearchResult.fullName };
+            Cursor cursor = mDB.query(
+                    GitHubSearchContract.SavedRepos.TABLE_NAME,
+                    null,
+                    sqlSelection,
+                    sqlSelectionArgs,
+                    null,
+                    null,
+                    null
+            );
+            isSaved = cursor.getCount() > 0;
+            cursor.close();
+        }
+        return isSaved;
+    }
+
+    private void updateSearchResultStarsInDB() {
+        if (mSearchResult != null) {
+            ContentValues row = new ContentValues();
+            row.put(GitHubSearchContract.SavedRepos.COLUMN_STARS, mSearchResult.stars);
+
+            String sqlSelection = GitHubSearchContract.SavedRepos.COLUMN_FULL_NAME + " = ?";
+            String[] sqlSelectionArgs = { mSearchResult.fullName };
+
+            mDB.update(GitHubSearchContract.SavedRepos.TABLE_NAME, row, sqlSelection, sqlSelectionArgs);
+        }
+    }
+
+    private void updateBookmarkIconState() {
+        if (mIsBookmarked) {
+            mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_black_48dp);
+        } else {
+            mIVSearchResultBookmark.setImageResource(R.drawable.ic_bookmark_border_black_48dp);
         }
     }
 }
